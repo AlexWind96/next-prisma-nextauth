@@ -15,6 +15,7 @@ model User {
   updatedAt     DateTime @updatedAt
   email         String?  @unique
   image         String?
+  password      String?
   role          Role     @default(USER)
   bookmarks     Link[]
   accounts      Account[]
@@ -55,6 +56,9 @@ model Session {
   userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("sessions")
 }
